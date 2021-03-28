@@ -134,7 +134,7 @@ func collectorFactory(userIDer multitenant.UserIDer, collectorURL, s3URL string,
 				MemcacheClient: memcacheClient,
 				Window:         window,
 				MaxTopNodes:    maxTopNodes,
-				CollectorAddr:  "",
+				CollectorAddr:  collectorAddr,
 			},
 		)
 		if err != nil {
