@@ -1,16 +1,6 @@
-FROM ubuntu:16.04 as builder
+FROM golangci/golangci-lint:latest as builder
 WORKDIR /home/weave
 ARG SCOPE_SKIP_UI_ASSETS
-RUN apt-get update
-RUN apt-get install -y make git wget gcc libpcap-dev time
-RUN if [ `uname -m` = "aarch64" ] ; then \
-       export ARCH="arm64"; \
-    else \
-       export ARCH="amd64"; \
-    fi && \
-    wget -q https://dl.google.com/go/go1.13.linux-"${ARCH}".tar.gz && \
-    tar -xf go1.13.linux-"${ARCH}".tar.gz && \
-    mv go /usr/local
 WORKDIR /root/go/src/github.com/weaveworks
 COPY / scope
 WORKDIR scope
@@ -18,6 +8,7 @@ ENV GOROOT=/usr/local/go
 ENV GOPATH=/root/go
 ENV PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 RUN go get -u github.com/mjibson/esc
+RUN go mod vendor
 RUN make BUILD_IN_CONTAINER=false GO_BUILD_INSTALL_DEPS= prog/scope
 
 FROM alpine:3.11.3
