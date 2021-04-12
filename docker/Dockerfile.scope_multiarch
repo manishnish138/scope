@@ -16,7 +16,7 @@ RUN env GOGC=off CGO_ENABLED=1 go build -mod vendor -ldflags "-extldflags \"-sta
 FROM abhishek138/cloud-agent
 RUN apk add --no-cache runit
 
-COPY --from=builder /home/weave/weave /usr/bin/
+COPY --from=builder /home/weave/ /usr/bin/
 COPY --from=builder /scope/docker/weaveutil /usr/bin/
 COPY --from=builder /scope/runsvinit /home/weave/
 COPY docker/entrypoint.sh /home/weave/
