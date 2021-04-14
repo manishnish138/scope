@@ -9,9 +9,9 @@ WORKDIR scope
 ENV GOROOT=/usr/local/go
 ENV GOPATH=/root/go
 ENV PATH=$GOPATH/bin:$GOROOT/bin:$PATH
-RUN go get -u github.com/mjibson/esc
-RUN go get github.com/iovisor/gobpf/elf
-RUN go mod vendor
+#RUN go get -u github.com/mjibson/esc
+#RUN go get github.com/iovisor/gobpf/elf
+#RUN go mod vendor
 RUN make BUILD_IN_CONTAINER=false GO_BUILD_INSTALL_DEPS= prog/scope
 
 FROM alpine:3.11.3
