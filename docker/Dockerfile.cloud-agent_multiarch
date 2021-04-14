@@ -2,14 +2,15 @@ FROM golangci/golangci-lint:latest as builder
 WORKDIR /home/weave
 ARG SCOPE_SKIP_UI_ASSETS
 WORKDIR /root/go/src/github.com/weaveworks
-RUN apt-get update
-RUN apt-get install -y libpcap-dev
+#RUN apt-get update
+#RUN apt-get install -y libpcap-dev
 COPY / scope
 WORKDIR scope
 ENV GOROOT=/usr/local/go
 ENV GOPATH=/root/go
 ENV PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 RUN go get -u github.com/mjibson/esc
+RUN go get github.com/iovisor/gobpf/elf
 RUN go mod vendor
 RUN make BUILD_IN_CONTAINER=false GO_BUILD_INSTALL_DEPS= prog/scope
 
