@@ -3,7 +3,7 @@ WORKDIR /home/weave
 ARG SCOPE_SKIP_UI_ASSETS
 WORKDIR /root/go/src/github.com/weaveworks
 RUN apt-get update
-RUN apt-get install -y libpcap-dev
+RUN apt-get install -y libpcap-dev time
 COPY / scope
 WORKDIR scope
 ENV GOROOT=/usr/local/go
